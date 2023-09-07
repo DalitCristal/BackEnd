@@ -1,0 +1,30 @@
+<h1 id="tituloTalleres">TALLERES DE AUTOCONOCIMIENTO</h1>
+<h2 id="subtituloTalleres">Herramientas sencillas, claras y al alcance de tus
+  manos para
+  <br />
+  empezar a trabajar en vos hoy mismo.</h2>
+<div id="productsContainer">
+  {{#each prods}}
+    <div class="boxProd">
+      <div class="columnaUno">
+        <img src={{this.thumbnail}} alt={{this.title}} />
+      </div>
+      <div class="columnaDos">
+        <p class="titleCard"> {{this.title}} </p>
+        <p class="descriptionCard"> {{this.description}} </p>
+        <p class="priceCard"> ${{this.price}} </p>
+        <p> Estado: {{this.status}} </p>
+        <p> Codigo: {{this.code}} </p>
+        <p> Stock: {{this.stock}} </p>
+        <p> Categoria: {{this.category}} </p>
+        <button class="styleBtnCard">Más información</button>
+      </div>
+    </div>
+  {{/each}}
+</div>
+
+{{!-- {{#if esProfe}}
+  <p>Sos profesor</p>
+{{else}}
+  <p>NO sos profesor</p>
+{{/if}} --}}

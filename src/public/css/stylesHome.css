@@ -1,0 +1,110 @@
+/* body {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+  background-color: #bdb2d930;
+  color: #575757;
+} */
+
+/* HEADER */
+#containerHeader {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+  background-color: #bdb2d930;
+  height: 250px;
+}
+
+#logo {
+  width: 100px;
+  height: 100px;
+}
+
+#navBar button {
+  font-size: 1rem;
+  border: none;
+  background: none;
+  padding: 0 1rem;
+  cursor: pointer;
+}
+
+#navBar button:hover {
+  color: #62d9cd;
+  font-weight: bold;
+}
+/* FIN - HEADER */
+
+/* HOME */
+#tituloTalleres {
+  padding-top: 40px;
+  color: #ffa654;
+  text-align: center;
+}
+#subtituloTalleres {
+  color: #62d9cd;
+  text-align: center;
+  padding-bottom: 40px;
+}
+
+#productsContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: start;
+  flex-wrap: wrap;
+}
+
+.boxProd {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: center;
+  margin: 0 auto;
+  margin-bottom: 3rem;
+}
+
+.columnaUno img {
+  padding: 0 40px 0 400px;
+  width: 500px;
+  height: 500px;
+}
+.columnaDos {
+  width: 100%;
+  padding: 0 400px 0 0;
+}
+.titleCard {
+  font-size: 3rem;
+  color: #62d9cd;
+}
+.descriptionCard {
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+.priceCard {
+  color: #ffa654;
+  font-size: 1.3rem;
+}
+.styleBtnCard {
+  border: none;
+  background-color: #62d9cd60;
+  color: #575757;
+  padding: 10px;
+  cursor: pointer;
+}
+.styleBtnCard:hover {
+  background-color: #575757;
+  color: #62d9cd;
+}
+/* FIN HOME */
+/* FOOTER */
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-evenly;
+  height: 80px;
+  background-color: #62d9cd;
+  font-weight: bold;
+  color: #575757;
+}
+/*FIN FOOTER */
