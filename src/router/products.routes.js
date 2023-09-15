@@ -1,13 +1,23 @@
 import { Router } from "express";
 import { productModel } from "../models/products.models.js";
+import paginate from "mongoose-paginate-v2";
 
 const productRouter = Router();
 
 productRouter.get("/", async (req, res) => {
-  const { limit } = req.query;
+  let { category, status, limit, page, sort } = req.query;
+
+  const categoria = category ?? "virtual";
+  const estado = status ?? true;
+  const limite = limit ?? 10;
+  const pagina = page ?? 1;
+  const clasificar = sort ?? "desc";
 
   try {
-    const prods = await productModel.find().limit(limit);
+    let prods = await productModel.paginate(
+      { category: categoria, status: estado },
+      { limit: limite, page: pagina, sort: { price: clasificar } }
+    );
     res.status(200).send({ respuesta: "OK", mensaje: prods });
   } catch (error) {
     res

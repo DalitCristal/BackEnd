@@ -1,3 +1,4 @@
+import "dotenv/config";
 import express from "express";
 import mongoose from "mongoose";
 import userRouter from "./router/users.routes.js";
@@ -8,15 +9,19 @@ import { Server } from "socket.io";
 import { messageModel } from "../src/models/messages.models.js";
 import path from "path";
 import { _dirname } from "./path.js";
+import { userModel } from "./models/users.models.js";
+import { cartModel } from "./models/carts.models.js";
+import { productModel } from "./models/products.models.js";
+import viewsRouter from "./router/views.routes.js";
 
 const app = express();
 const PORT = 8080;
 
 mongoose
-  .connect(
-    "mongodb+srv://dalacristal:[password]@cluster0.qpsi8nz.mongodb.net/?retryWrites=true&w=majority"
-  )
-  .then(() => console.log("BDD conectada"))
+  .connect(process.env.MONGO_URL)
+  .then(async () => {
+    console.log("BDD conectada");
+  })
   .catch(() => console.log("Error en conexion a BDD"));
 
 app.use(express.json());
@@ -55,22 +60,4 @@ io.on("connection", (socket) => {
 app.use("/api/users", userRouter);
 app.use("/api/products", productRouter);
 app.use("/api/carts", cartRouter);
-
-app.get("/static/chat", (req, res) => {
-  res.render("chat", {
-    css: "styles.css",
-    js: "script.js",
-  });
-});
-
-app.get("/static/home", (req, res) => {
-  res.render("home", {
-    css: "stylesHome.css",
-  });
-});
-
-app.get("/static/products", (req, res) => {
-  res.render("products", {
-    css: "stylesProducts.css",
-  });
-});
+app.use("/", viewsRouter);
