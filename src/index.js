@@ -14,6 +14,8 @@ import { cartModel } from "./models/carts.models.js";
 import { productModel } from "./models/products.models.js";
 import viewsRouter from "./router/views.routes.js";
 import cookieParser from "cookie-parser";
+import passport from "passport";
+import initializePassport from "./config/passport.js";
 import session from "express-session";
 import MongoStore from "connect-mongo";
 import sessionRouter from "./router/session.routes.js";
@@ -48,6 +50,11 @@ app.use(
     saveUninitialized: false,
   })
 );
+
+initializePassport();
+app.use(passport.initialize());
+app.use(passport.session());
+
 app.use(express.urlencoded({ extended: true }));
 const server = app.listen(PORT, () => {
   console.log(`Servidor en conectado en Puerto ${PORT}`);

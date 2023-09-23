@@ -1,9 +1,32 @@
 import { Router } from "express";
+import passport from "passport";
 import { userModel } from "../models/users.models.js";
 
 const sessionRouter = Router();
 
-sessionRouter.post("/login", async (req, res) => {
+sessionRouter.post(
+  "/login",
+  passport.authenticate("login"),
+  async (req, res) => {
+    try {
+      if (!user) {
+        return res.status(401).send({ mensaje: `invalidate user` });
+      }
+
+      req.session.user = {
+        first_name: req.user.first_name,
+        last_name: req.user.last_name,
+        age_name: req.user.age,
+        email_name: req.user.email,
+      };
+
+      res.status(200).send({ payload: req.user });
+    } catch (error) {
+      res.status(500).send({ mensaje: `Error al iniciar sesion ${error}` });
+    }
+  }
+);
+/* sessionRouter.post("/login", async (req, res) => {
   const { email, password } = req.body;
 
   try {
@@ -28,7 +51,23 @@ sessionRouter.post("/login", async (req, res) => {
   } catch (error) {
     res.status(400).send({ error: `Erron en Login: ${error}` });
   }
-});
+}); */
+
+sessionRouter.post(
+  "/register",
+  passport.authenticate("register"),
+  async (req, res) => {
+    try {
+      if (!user) {
+        return res.status(400).send({ mensaje: `usuario ya existente` });
+      }
+
+      res.status(200).send({ mensaje: `uruario creado` });
+    } catch (error) {
+      res.status(500).send({ mensaje: `Error al registrar usuario ${error}` });
+    }
+  }
+);
 
 sessionRouter.get("/logout", (req, res) => {
   if (req.session.login) {

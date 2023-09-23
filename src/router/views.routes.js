@@ -1,6 +1,14 @@
 import { Router } from "express";
 import { productModel } from "../models/products.models.js";
+import { userModel } from "../models/users.models.js";
 const viewsRouter = Router();
+
+viewsRouter.get("/static/register", (req, res) => {
+  res.render("register", {
+    css: "stylesRegister.css",
+    js: "scriptRegister.js",
+  });
+});
 
 viewsRouter.get("/static/chat", (req, res) => {
   res.render("chat", {

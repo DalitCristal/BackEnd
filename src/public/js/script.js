@@ -7,17 +7,19 @@ let user;
 const time = new Date().toLocaleString();
 
 Swal.fire({
-  title: "Identificacion de usuario",
-  text: "Porfavor ingrese su nombre",
-  input: "text",
+  title: "Identificación de usuario",
+  text: "Por favor, ingrese su dirección de correo electrónico",
+  input: "email",
 
   inputValidator: (valor) => {
-    return !valor && "Ingrese su nombre de usuario";
+    const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$/;
+    if (!valor.match(emailRegex)) {
+      return "Ingrese una dirección de correo electrónico válida";
+    }
   },
   allowOutsideClick: false,
 }).then((resultado) => {
   user = resultado.value;
-  console.log(user);
 });
 
 $sendMessage.addEventListener("click", async () => {

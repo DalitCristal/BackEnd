@@ -33,7 +33,7 @@ userRouter.get("/:id", async (req, res) => {
   }
 });
 
-userRouter.post("/", async (req, res) => {
+/* userRouter.post("/", async (req, res) => {
   const { first_name, last_name, age, email, password } = req.body;
   try {
     const respuesta = await userModel.create({
@@ -49,7 +49,7 @@ userRouter.post("/", async (req, res) => {
       .status(400)
       .send({ respuesta: "Error en crear usuario", mensaje: error });
   }
-});
+}); */
 
 userRouter.put("/:id", async (req, res) => {
   const { id } = req.params;
