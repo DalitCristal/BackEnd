@@ -34,12 +34,12 @@ userRouter.get("/:id", async (req, res) => {
 });
 
 userRouter.post("/", async (req, res) => {
-  const { nombre, apellido, edad, email, password } = req.body;
+  const { first_name, last_name, age, email, password } = req.body;
   try {
     const respuesta = await userModel.create({
-      nombre,
-      apellido,
-      edad,
+      first_name,
+      last_name,
+      age,
       email,
       password,
     });
@@ -53,12 +53,12 @@ userRouter.post("/", async (req, res) => {
 
 userRouter.put("/:id", async (req, res) => {
   const { id } = req.params;
-  const { nombre, apellido, edad, email, password } = req.body;
+  const { first_name, last_name, age, email, password } = req.body;
   try {
     const user = await userModel.findByIdAndUpdate(id, {
-      nombre,
-      apellido,
-      edad,
+      first_name,
+      last_name,
+      age,
       email,
       password,
     });

@@ -13,10 +13,15 @@ import { userModel } from "./models/users.models.js";
 import { cartModel } from "./models/carts.models.js";
 import { productModel } from "./models/products.models.js";
 import viewsRouter from "./router/views.routes.js";
+import cookieParser from "cookie-parser";
+import session from "express-session";
+import MongoStore from "connect-mongo";
+import sessionRouter from "./router/session.routes.js";
 
 const app = express();
 const PORT = 8080;
 
+//BDD
 mongoose
   .connect(process.env.MONGO_URL)
   .then(async () => {
@@ -24,7 +29,25 @@ mongoose
   })
   .catch(() => console.log("Error en conexion a BDD"));
 
+//MIDLEWEARE
 app.use(express.json());
+app.use(cookieParser(process.env.SIGNED_COOKIE));
+app.use(
+  session({
+    store: MongoStore.create({
+      mongoUrl: process.env.MONGO_URL,
+      mongoOptions: {
+        useNewUrlParser: true,
+        useUnifiedTopoLogy: true,
+      },
+      ttl: 60,
+    }),
+
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: false,
+  })
+);
 app.use(express.urlencoded({ extended: true }));
 const server = app.listen(PORT, () => {
   console.log(`Servidor en conectado en Puerto ${PORT}`);
@@ -56,8 +79,9 @@ io.on("connection", (socket) => {
     }
   });
 });
-
+//Rutas
 app.use("/api/users", userRouter);
 app.use("/api/products", productRouter);
 app.use("/api/carts", cartRouter);
+app.use("/api/session", sessionRouter);
 app.use("/", viewsRouter);
