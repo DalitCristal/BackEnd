@@ -1,6 +1,6 @@
 import local from "passport-local";
 import passport from "passport";
-import { createHas, validatePassword } from "../utils/bcrypt.js";
+import { encrypPassword, validatePassword } from "../utils/bcrypt.js";
 import { userModel } from "../models/users.models.js";
 
 const LocalStrategy = local.Strategy;
@@ -19,7 +19,7 @@ const initializePassport = () => {
           if (user) {
             return done(null, false);
           }
-          const passwordHas = createHas(password);
+          const passwordHas = encrypPassword(password);
           const userCreated = await userModel.create({
             first_name: first_name,
             last_name: last_name,

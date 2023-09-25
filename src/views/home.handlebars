@@ -17,16 +17,16 @@
         <p> Codigo: {{this.code}} </p>
         <p> Stock: {{this.stock}} </p>
         <p> Categoria: {{this.category}} </p>
-        <button class="styleBtnCard" id={{this.id}}>Más información</button>
+        <button class="styleBtnCard" id={{this.id}}>Agregar al carrito</button>
       </div>
     </div>
   {{/each}}
-  <div>
-    <div>
-      <a href="http://localhost:8080/static/home?page={{prev}}">Anterior</a>
-    </div>
-    <div>
-      <a href="http://localhost:8080/static/home?page={{next}}">Siguiente</a>
-    </div>
-  </div>
+</div>
+<div class="btnsPages">
+  <button class="btnP">
+    <a href="http://localhost:8080/static/home?page={{prev}}">Anterior</a>
+  </button>
+  <button class="btnP">
+    <a href="http://localhost:8080/static/home?page={{next}}">Siguiente</a>
+  </button>
 </div>

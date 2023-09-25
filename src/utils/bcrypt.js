@@ -1,10 +1,10 @@
 import "dotenv/config";
 import bcrypt from "bcrypt";
 
-export const createHas = (password) =>
+export const encrypPassword = (password) =>
   bcrypt.hashSync(password, bcrypt.genSaltSync(parseInt(process.env.SALT)));
 
-//const passwordEnc = createHas("coderhouse");
+//const passwordEnc = encrypPassword("coderhouse");
 
 export const validatePassword = (passwordSend, passwordBDD) =>
   bcrypt.compareSync(passwordSend, passwordBDD);

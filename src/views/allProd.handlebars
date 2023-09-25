@@ -1,0 +1,34 @@
+<h1>TODOS LOS PRODUCTOS</h1>
+<div id="productsContainer">
+  {{#each prods}}
+    <div class="boxProd">
+      <a href="/products/edit/{{id}}" class="btnEditProd"><i
+          class="bi bi-pencil-square"
+        ></i>
+      </a>
+      <div class="columnaUno">
+        <img src={{thumbnail}} alt={{title}} />
+      </div>
+      <div class="columnaDos">
+        <p class="titleCard"> {{title}}</p>
+        <p class="descriptionCard"> {{description}} </p>
+        <p class="priceCard"> ${{price}} </p>
+        <p> Estado: {{status}} </p>
+        <p> Codigo: {{code}} </p>
+        <p> Stock: {{stock}} </p>
+        <p> Categoria: {{category}} </p>
+        <button class="styleBtnCard" id={{id}}>Delete<i
+            class="bi bi-trash3"
+          ></i></button>
+      </div>
+    </div>
+  {{/each}}
+</div>
+<div class="btnsPages">
+  <button class="btnP">
+    <a href="http://localhost:8080/static/products?page={{prev}}">Anterior</a>
+  </button>
+  <button class="btnP">
+    <a href="http://localhost:8080/static/products?page={{next}}">Siguiente</a>
+  </button>
+</div>

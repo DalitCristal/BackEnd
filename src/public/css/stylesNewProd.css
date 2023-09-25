@@ -1,0 +1,29 @@
+body {
+  background-color: #fffdd1;
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+/* FORMULARIO */
+/* Estilo para el formulario */
+.inputFormu {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid #000000;
+  border-radius: 5px;
+}
+
+#btnFormu {
+  background-color: #fb7e00;
+  color: #fffdd1;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+#btnFormu:hover {
+  background-color: #ffca23;
+}
+
+/* Otros estilos según sea necesario */

@@ -1,0 +1,102 @@
+body {
+  background-color: #fffdd1;
+  font-family: Arial, sans-serif;
+  text-align: center;
+}
+/* Estilo para la vista de productos */
+#productsContainer {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+
+.boxProd {
+  width: calc(33% - 20px);
+  margin: 10px;
+  padding: 20px;
+  background-color: #ffca2350;
+  border: 1px solid #000000;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: start;
+}
+
+/* estilos de los textos*/
+.boxProd .titleCard {
+  color: #fb7e00;
+  font-size: 32px;
+  font-weight: bold;
+}
+
+.boxProd .descriptionCard {
+  color: #000000;
+  font-size: 16px;
+}
+
+.boxProd .priceCard {
+  color: #000000;
+  font-size: 18px;
+  font-weight: bold;
+}
+
+/* Estilo para el botón "Agregar al carrito" */
+.boxProd .styleBtnCard {
+  background-color: red;
+  color: #ffffff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin-top: 10px;
+  font-size: 16px;
+}
+
+.boxProd .styleBtnCard:hover {
+  background-color: #333333;
+  color: #fff041;
+}
+/* Estilos para el boton editar */
+
+.btnEditProd {
+  font-size: 32px;
+}
+
+/* Estilo para los encabezados */
+#tituloTalleres {
+  color: #fb7e00;
+  font-size: 28px;
+  text-align: center;
+  margin-top: 20px;
+}
+
+#subtituloTalleres {
+  color: #000000;
+  font-size: 18px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Estilos botones paginación */
+.btnsPages {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.btnP {
+  background-color: #fba51b;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  margin: 10px;
+  font-size: 16px;
+}
+.btnP a {
+  text-decoration: none;
+  color: #fff041;
+}

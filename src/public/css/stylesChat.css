@@ -1,0 +1,113 @@
+body {
+  box-sizing: border-box;
+  margin: 0;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
+  background-color: #1c1538;
+  color: #e7e5ee;
+}
+
+.customNav {
+  background-color: #2b1e59;
+}
+.customNav a {
+  color: #e7e5ee;
+}
+.customNav a:hover {
+  color: #6e34bf;
+}
+.customNav a:focus {
+  color: #4ea66d;
+}
+
+.boxFooter {
+  background-color: #2b1e59;
+  width: 100vw;
+  height: 90px;
+}
+.boxFooter h3 {
+  color: #e7e5ee;
+  text-align: center;
+}
+
+.firstContainer {
+  height: 80vh;
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  margin: 0px auto;
+}
+
+.chatBox {
+  height: 80%;
+  width: 70%;
+  background-color: #42208c;
+  border-radius: 8px;
+  border: solid 1px #4ea66dce;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.boxMessage {
+  height: 80%;
+  width: 97%;
+  overflow-y: scroll;
+  background-color: #2b1e59;
+  border-radius: 8px;
+  margin-top: 2%;
+}
+
+.boxMessage::-webkit-scrollbar {
+  width: 4px;
+  border-radius: 8px;
+}
+.boxMessage::-webkit-scrollbar-thumb {
+  width: 4px;
+  background-color: #4ea66d;
+  border-radius: 8px;
+}
+
+.boxMessage .oneMessage {
+  padding: 4px 8px;
+  margin: 6px;
+  background-color: #42208c;
+  border-radius: 8px;
+}
+
+.boxMessage p {
+  color: #e7e5ee;
+  font-size: 0.8rem;
+  display: block;
+}
+
+.boxMessage .horario {
+  display: block;
+  position: relative;
+  bottom: 5px;
+  height: 1rem;
+  margin: 0;
+  padding: 0;
+  text-align: -webkit-right;
+}
+
+.boxManage {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  width: 90%;
+  height: 20%;
+  margin: 10px;
+}
+
+.boxManage input {
+  width: 85%;
+  height: 38px;
+  border-radius: 8px;
+  border: solid 1px #4ea66d81;
+}
