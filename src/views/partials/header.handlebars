@@ -24,22 +24,43 @@
         <li class="nav-item">
           <a class="nav-link" href="/static/chat">Chat</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/static/products/add">Add Product</a>
+        <li class="nav-item dropdown">
+          <a
+            class="nav-link dropdown-toggle"
+            href="#"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            Products
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="/static/products">All products</a></li>
+            <li><a class="dropdown-item" href="/static/products/add">Add product</a></li>
+            <li><hr class="dropdown-divider" /></li>
+            <li><a class="dropdown-item" href="#">Something else here</a></li>
+          </ul>
         </li>
       </ul>
       <ul class="navbar-nav">
-        <li class="nav-item">
+        <li class="nav-item dropdown">
           <a
-            class="nav-link active"
-            aria-current="page"
-            href="/static/register"
-          >Register</a>
+            class="nav-link dropdown-toggle"
+            href="#"
+            role="button"
+            data-bs-toggle="dropdown"
+            aria-expanded="false"
+          >
+            User
+          </a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="/static/register">Register</a></li>
+            <li><a class="dropdown-item" href="/static/login">Login</a></li>
+            <li><hr class="dropdown-divider" /></li>
+            <li><a class="dropdown-item" href="#">Logout</a></li>
+          </ul>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/static/login">Login</a>
-        </li>
-      </ul>
+       
     </div>
   </div>
 </nav>
