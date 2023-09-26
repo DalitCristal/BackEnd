@@ -16,6 +16,9 @@ import initializePassport from "./config/passport.js";
 import session from "express-session";
 import MongoStore from "connect-mongo";
 import sessionRouter from "./router/session.routes.js";
+import methodOverride from "method-override";
+
+// Resto de tu código
 
 //INICIALIZACION
 const app = express();
@@ -57,6 +60,7 @@ app.use(
     saveUninitialized: false,
   })
 );
+app.use(methodOverride("_method"));
 
 initializePassport();
 app.use(passport.initialize());

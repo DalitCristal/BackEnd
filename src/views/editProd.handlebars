@@ -1,0 +1,48 @@
+<div>
+  <h1>EDITAR PRODUCTO</h1>
+
+  <form
+    action="/static/products/edit/{{product.id}}?_method=PUT"
+    method="POST"
+    id="idForm"
+  >
+    <input type="hidden" name="_method" value="PUT" />
+    <input
+      type="text"
+      name="title"
+      class="inputFormu"
+      value="{{product.title}}"
+    />
+    <textarea name="description" class="inputFormu">
+      {{product.description}}
+    </textarea>
+    <input
+      type="number"
+      name="stock"
+      class="inputFormu"
+      value="{{product.stock}}"
+    />
+    <input
+      type="text"
+      name="code"
+      class="inputFormu"
+      value="{{product.code}}"
+    />
+    <input
+      type="number"
+      name="price"
+      class="inputFormu"
+      value="{{product.price}}"
+    />
+    <input
+      type="text"
+      name="category"
+      class="inputFormu"
+      value="{{product.category}}"
+    />
+
+    <button type="submit" id="btnFormu">Guardar</button>
+
+  </form>
+
+</div>

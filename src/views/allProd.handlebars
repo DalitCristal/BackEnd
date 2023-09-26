@@ -2,7 +2,7 @@
 <div id="productsContainer">
   {{#each prods}}
     <div class="boxProd">
-      <a href="/products/edit/{{id}}" class="btnEditProd"><i
+      <a href="/static/products/edit/{{id}}" class="btnEditProd"><i
           class="bi bi-pencil-square"
         ></i>
       </a>
@@ -17,9 +17,15 @@
         <p> Codigo: {{code}} </p>
         <p> Stock: {{stock}} </p>
         <p> Categoria: {{category}} </p>
-        <button class="styleBtnCard" id={{id}}>Delete<i
-            class="bi bi-trash3"
-          ></i></button>
+        <form
+          action="/static/products/delete/{{id}}?_method=DELETE"
+          method="POST"
+        >
+          <input type="hidden" name="_method" value="DELETE" />
+          <button class="styleBtnCard" id={{id}}>Delete<i
+              class="bi bi-trash3"
+            ></i></button>
+        </form>
       </div>
     </div>
   {{/each}}

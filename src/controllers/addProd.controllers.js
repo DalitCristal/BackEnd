@@ -19,7 +19,7 @@ addProdCtrls.renderNewProd = async (req, res) => {
       price,
       category,
     });
-    res.status(200).send({ respuesta: "OK", mensaje: newProd });
+    res.redirect("/static/products");
   } catch (error) {
     res
       .status(400)
@@ -109,16 +109,83 @@ addProdCtrls.renderProducts = async (req, res) => {
   });
 };
 
-addProdCtrls.renderEditForm = (req, res) => {
-  res.send("formulario editar producto");
+addProdCtrls.renderEditForm = async (req, res) => {
+  const { id } = req.params;
+  let newProd;
+  try {
+    const prod = await productModel.findById(id);
+    if (prod) {
+      newProd = {
+        title: prod.title,
+        description: prod.description,
+        price: prod.price,
+        stock: prod.stock,
+        category: prod.category,
+        status: prod.status,
+        code: prod.code,
+        id: prod._id,
+      };
+      res.render("editProd", {
+        product: newProd,
+      });
+    } else {
+      res.status(400).send({
+        respuesta: "Error capturar informacion de la bdd",
+        mensaje: error,
+      });
+    }
+  } catch (error) {
+    res.status(400).send({
+      respuesta: "Error capturar informacion del producto en la bdd",
+      mensaje: error,
+    });
+  }
 };
 
-addProdCtrls.renderUpdateProd = (req, res) => {
-  res.send("editar producto");
+addProdCtrls.renderUpdateProd = async (req, res) => {
+  const { id } = req.params;
+  const { title, description, stock, status, code, price, category } = req.body;
+
+  try {
+    const prod = await productModel.findByIdAndUpdate(id, {
+      title,
+      description,
+      price,
+      stock,
+      category,
+      status,
+      code,
+    });
+    if (prod) res.redirect("/static/products");
+    else
+      res.status(404).send({
+        respuesta: "Error en actualizar Producto",
+        mensaje: "Not Found",
+      });
+  } catch (error) {
+    res
+      .status(400)
+      .send({ respuesta: "Error en actualizar producto", mensaje: error });
+  }
 };
 
-addProdCtrls.deleteProd = (req, res) => {
-  res.send("producto eliminado");
+addProdCtrls.deleteProd = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const prod = await productModel.findByIdAndDelete(id);
+    if (prod) {
+      res.redirect("/static/products");
+    } else
+      res.status(404).send({
+        respuesta: "Error en eliminar Producto",
+        mensaje: "Not Found",
+      });
+  } catch (error) {
+    res
+      .status(400)
+      .send({ respuesta: "Error en eliminar producto", mensaje: error });
+  }
 };
 
 export default addProdCtrls;
