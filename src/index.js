@@ -103,12 +103,7 @@ io.on("connection", (socket) => {
 //RUTAS
 
 app.use("/static", viewsRouter);
-//app.use("/static/products", productRouter);
-
-//app.use("/api/users", userRouter);
-//app.use("/api/products", productRouter);
 app.use("/api/carts", cartRouter);
-//app.use("/api/session", sessionRouter);
 
 app.use("/", productRouter);
 app.use("/", userRouter);

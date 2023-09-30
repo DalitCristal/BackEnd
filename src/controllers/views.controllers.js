@@ -1,5 +1,4 @@
 import { productModel } from "../models/products.models.js";
-import { userModel } from "../models/users.models.js";
 const viewsCtrls = {};
 
 viewsCtrls.renderHome = async (req, res) => {
@@ -115,7 +114,7 @@ viewsCtrls.renderHome = async (req, res) => {
   });
 }; */
 
-viewsCtrls.renderNewUser = async (req, res) => {
+/* viewsCtrls.renderNewUser = async (req, res) => {
   const { first_name, last_name, age, email, password } = req.body;
   try {
     const newUser = await userModel.create({
@@ -131,14 +130,14 @@ viewsCtrls.renderNewUser = async (req, res) => {
       .status(400)
       .send({ respuesta: "Error al crear usuario", mensaje: error });
   }
-};
+}; */
 
-viewsCtrls.renderLogin = (req, res) => {
+/* viewsCtrls.renderLogin = (req, res) => {
   res.render("login", {
     css: "stylesLogin.css",
     js: "scriptLogin.js",
   });
-};
+}; */
 
 viewsCtrls.renderChat = (req, res) => {
   res.render("chat", {
