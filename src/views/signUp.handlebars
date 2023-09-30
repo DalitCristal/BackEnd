@@ -1,11 +1,12 @@
 <div>
   <h1 id="titleForm">Formulario de Registro</h1>
-  <form action="/static/register/new-user" method="post" id="containerForm">
+  <form action="/static/signup" method="post" id="containerForm">
     <input
       type="text"
       id="first_name"
       name="first_name"
       placeholder="Nombre"
+      value="{{first_name}}"
       class="inputForm"
       required
     />
@@ -15,6 +16,7 @@
       id="last_name"
       name="last_name"
       placeholder="Apellido"
+      value="{{last_name}}"
       class="inputForm"
       required
     />
@@ -23,6 +25,7 @@
       id="age"
       name="age"
       placeholder="Edad"
+      value="{{age}}"
       class="inputForm"
       required
     />
@@ -32,6 +35,7 @@
       id="email"
       name="email"
       placeholder="Correo Electrónico"
+      value="{{email}}"
       class="inputForm"
       required
     />
@@ -45,6 +49,15 @@
       required
     />
 
-    <input type="submit" value="ENVIAR" id="btnForm" />
+    <input
+      type="password"
+      id="confirm_password"
+      name="confirm_password"
+      placeholder="Confirmar Contraseña"
+      class="inputForm"
+      required
+    />
+
+    <input type="submit" value="Registrarme" id="btnForm" />
   </form>
 </div>

@@ -1,114 +1,46 @@
 import { Router } from "express";
-import { productModel } from "../models/products.models.js";
+import productCtrls from "../controllers/products.controllers.js";
 
 const productRouter = Router();
 
-productRouter.get("/", async (req, res) => {
-  let { category, status, limit, page, sort } = req.query;
+/*************************************** VISTAS ***************************************/
+//Nuevo producto
+productRouter.get("/static/products/add", productCtrls.renderAddProd);
 
-  const categoria = category ?? "virtual";
-  const estado = status ?? true;
-  const limite = limit ?? 10;
-  const pagina = page ?? 1;
-  const clasificar = sort ?? "desc";
+productRouter.post(
+  "/static/products/new-product",
+  productCtrls.renderCreateNewProd
+);
 
-  try {
-    let prods = await productModel.paginate(
-      { category: categoria, status: estado },
-      { limit: limite, page: pagina, sort: { price: clasificar } }
-    );
-    res.status(200).send({ respuesta: "OK", mensaje: prods });
-  } catch (error) {
-    res
-      .status(400)
-      .send({ respuesta: "Error en consultar productos", mensaje: error });
-  }
-});
+//Obtener todos los productos
+productRouter.get("/static/products", productCtrls.renderProducts);
 
-productRouter.get("/:id", async (req, res) => {
-  const { id } = req.params;
+//Editar producto
+productRouter.get("/static/products/edit/:id", productCtrls.renderEditForm);
 
-  try {
-    const prod = await productModel.findById(id);
-    if (prod) res.status(200).send({ respuesta: "OK", mensaje: prod });
-    else
-      res.status(404).send({
-        respuesta: "Error en consultar Producto",
-        mensaje: "Not Found",
-      });
-  } catch (error) {
-    res
-      .status(400)
-      .send({ respuesta: "Error en consulta producto", mensaje: error });
-  }
-});
+productRouter.put("/static/products/edit/:id", productCtrls.renderUpdateProd);
 
-productRouter.post("/", async (req, res) => {
-  const { title, description, stock, code, price, category } = req.body;
-  try {
-    const prod = await productModel.create({
-      title,
-      description,
-      stock,
-      code,
-      price,
-      category,
-    });
-    res.status(200).send({ respuesta: "OK", mensaje: prod });
-  } catch (error) {
-    res
-      .status(400)
-      .send({ respuesta: "Error en crear productos", mensaje: error });
-  }
-});
+//Eliminar producto
+productRouter.delete(
+  "/static/products/delete/:id",
+  productCtrls.renderDeleteProd
+);
 
-productRouter.put("/:id", async (req, res) => {
-  const { id } = req.params;
-  const { title, description, stock, status, code, price, category } = req.body;
+/************************************** API ***************************************/
 
-  try {
-    const prod = await productModel.findByIdAndUpdate(id, {
-      title,
-      description,
-      stock,
-      status,
-      code,
-      price,
-      category,
-    });
-    if (prod)
-      res
-        .status(200)
-        .send({ respuesta: "OK", mensaje: "Producto actualizado" });
-    else
-      res.status(404).send({
-        respuesta: "Error en actualizar Producto",
-        mensaje: "Not Found",
-      });
-  } catch (error) {
-    res
-      .status(400)
-      .send({ respuesta: "Error en actualizar producto", mensaje: error });
-  }
-});
+//Crear nuevo producto
+productRouter.post("/api/products", productCtrls.renderApiCreateNewProd);
 
-productRouter.delete("/:id", async (req, res) => {
-  const { id } = req.params;
+//Obtener todos los productos
+productRouter.get("/api/products", productCtrls.renderApiProducts);
 
-  try {
-    const prod = await productModel.findByIdAndDelete(id);
-    if (prod)
-      res.status(200).send({ respuesta: "OK", mensaje: "Producto eliminado" });
-    else
-      res.status(404).send({
-        respuesta: "Error en eliminar Producto",
-        mensaje: "Not Found",
-      });
-  } catch (error) {
-    res
-      .status(400)
-      .send({ respuesta: "Error en eliminar producto", mensaje: error });
-  }
-});
+//Obtener un producto
+productRouter.get("/api/products/:id", productCtrls.renderApiProductById);
+
+//Editar producto
+productRouter.put("/api/products/:id", productCtrls.renderApiUpdateProd);
+
+//Eliminar producto
+productRouter.delete("/api/products/:id", productCtrls.renderApiDeleteProd);
 
 export default productRouter;

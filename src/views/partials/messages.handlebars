@@ -1,0 +1,25 @@
+{{#if seccess_alert}}
+  <div class="alert alert-success alert-dismissible fade show" role="alert">
+    <i class="bi bi-check-square-fill"></i>
+    {{seccess_alert}}
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="alert"
+      aria-label="Close"
+    ></button>
+  </div>
+{{/if}}
+
+{{#if error_alert}}
+  <div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <i class="bi bi-check-square-fill"></i>
+    {{error_alert}}
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="alert"
+      aria-label="Close"
+    ></button>
+  </div>
+{{/if}}

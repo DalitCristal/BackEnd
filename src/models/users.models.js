@@ -1,5 +1,7 @@
+import "dotenv/config";
 import { Schema, model } from "mongoose";
 import paginate from "mongoose-paginate-v2";
+import "dotenv/config";
 
 const userSchema = new Schema({
   first_name: {

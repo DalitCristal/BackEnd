@@ -12,7 +12,10 @@
 <body>
     {{>header}}
     <main class="container">
-    {{{body}}}
+
+        {{>messages}}
+        {{>errors}}
+        {{{body}}}
 
     </main>
     {{>footer}}

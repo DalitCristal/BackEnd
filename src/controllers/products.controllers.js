@@ -1,14 +1,16 @@
 import { productModel } from "../models/products.models.js";
 
-const addProdCtrls = {};
+const productCtrls = {};
 
-addProdCtrls.renderAddProd = (req, res) => {
+/*************************************** VISTAS ***************************************/
+
+productCtrls.renderAddProd = (req, res) => {
   res.render("newProd", {
     css: "stylesNewProd.css",
   });
 };
 
-addProdCtrls.renderNewProd = async (req, res) => {
+productCtrls.renderCreateNewProd = async (req, res) => {
   const { title, description, stock, code, price, category } = req.body;
   try {
     const newProd = await productModel.create({
@@ -19,6 +21,7 @@ addProdCtrls.renderNewProd = async (req, res) => {
       price,
       category,
     });
+    req.flash("seccess_alert", "Producto creado satisfactoriamente");
     res.redirect("/static/products");
   } catch (error) {
     res
@@ -27,7 +30,7 @@ addProdCtrls.renderNewProd = async (req, res) => {
   }
 };
 
-addProdCtrls.renderProducts = async (req, res) => {
+productCtrls.renderProducts = async (req, res) => {
   let { category, status, limit, page, sort } = req.query;
 
   const cat = category ?? "virtual";
@@ -109,7 +112,7 @@ addProdCtrls.renderProducts = async (req, res) => {
   });
 };
 
-addProdCtrls.renderEditForm = async (req, res) => {
+productCtrls.renderEditForm = async (req, res) => {
   const { id } = req.params;
   let newProd;
   try {
@@ -142,7 +145,7 @@ addProdCtrls.renderEditForm = async (req, res) => {
   }
 };
 
-addProdCtrls.renderUpdateProd = async (req, res) => {
+productCtrls.renderUpdateProd = async (req, res) => {
   const { id } = req.params;
   const { title, description, stock, status, code, price, category } = req.body;
 
@@ -156,8 +159,11 @@ addProdCtrls.renderUpdateProd = async (req, res) => {
       status,
       code,
     });
-    if (prod) res.redirect("/static/products");
-    else
+
+    if (prod) {
+      req.flash("seccess_alert", "Producto actualizado satisfactoriamente");
+      res.redirect("/static/products");
+    } else
       res.status(404).send({
         respuesta: "Error en actualizar Producto",
         mensaje: "Not Found",
@@ -169,12 +175,13 @@ addProdCtrls.renderUpdateProd = async (req, res) => {
   }
 };
 
-addProdCtrls.deleteProd = async (req, res) => {
+productCtrls.renderDeleteProd = async (req, res) => {
   const { id } = req.params;
 
   try {
     const prod = await productModel.findByIdAndDelete(id);
     if (prod) {
+      req.flash("seccess_alert", "Producto eliminado satisfactoriamente");
       res.redirect("/static/products");
     } else
       res.status(404).send({
@@ -188,4 +195,115 @@ addProdCtrls.deleteProd = async (req, res) => {
   }
 };
 
-export default addProdCtrls;
+/************************************** API ***************************************/
+
+productCtrls.renderApiProducts = async (req, res) => {
+  const { limit } = req.query;
+  try {
+    const prods = await productModel.find().limit(limit);
+    res.status(200).send({ respuesta: "OK", mensaje: prods });
+  } catch (error) {
+    res
+      .status(400)
+      .send({ respuesta: "Error en consultar productos", mensaje: error });
+  }
+};
+
+// ------ Buscar producto por ID ------
+productCtrls.renderApiProductById = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const prod = await productModel.findById(id);
+    if (prod) {
+      res.status(200).send({ respuesta: "OK", mensaje: prod });
+    } else {
+      res.status(404).send({
+        respuesta: "Error en consultar Producto",
+        mensaje: "Not Found",
+      });
+    }
+  } catch (error) {
+    res
+      .status(400)
+      .send({ respuesta: "Error en consultar producto", mensaje: error });
+  }
+};
+
+// ------ Creaer producto ------
+productCtrls.renderApiCreateNewProd = async (req, res) => {
+  const { title, description, price, stock, code, thumbnail, category } =
+    req.body;
+
+  try {
+    const prod = await productModel.create({
+      title,
+      description,
+      price,
+      stock,
+      code,
+      category,
+    });
+    res.status(200).send({ respuesta: "OK", mensaje: prod });
+  } catch (error) {
+    res
+      .status(400)
+      .send({ respuesta: "Error en crear producto", mensaje: error });
+  }
+};
+
+// ------ Actualizar un producto ------
+productCtrls.renderApiUpdateProd = async (req, res) => {
+  const { id } = req.params;
+  const { title, description, price, stock, code, thumbnail, category } =
+    req.body;
+
+  try {
+    const prod = await productModel.findByIdAndUpdate(id, {
+      title,
+      description,
+      price,
+      stock,
+      code,
+      thumbnail,
+      category,
+    });
+    if (prod) {
+      res
+        .status(200)
+        .send({ respuesta: "OK", mensaje: "Producto Actualizado" });
+    } else {
+      res.status(404).send({
+        respuesta: "Error en actualizar producto",
+        mensaje: "Not Found",
+      });
+    }
+  } catch (error) {
+    res
+      .status(400)
+      .send({ respuesta: "Error en actualizar un producto", mensaje: error });
+  }
+};
+
+// ------ Borrar un producto ------
+productCtrls.renderApiDeleteProd = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const prod = await productModel.findByIdAndDelete(id);
+    if (prod) {
+      res.status(200).send({ respuesta: "OK", mensaje: "Producto Borrado" });
+    } else {
+      res.status(404).send({
+        respuesta: "Error en borrar producto",
+        mensaje: "Not Found",
+      });
+    }
+  } catch (error) {
+    res
+      .status(400)
+      .send({ respuesta: "Error en borrar producto", mensaje: error });
+  }
+};
+
+export default productCtrls;

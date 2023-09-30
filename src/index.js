@@ -17,8 +17,7 @@ import session from "express-session";
 import MongoStore from "connect-mongo";
 import sessionRouter from "./router/session.routes.js";
 import methodOverride from "method-override";
-
-// Resto de tu código
+import flash from "connect-flash";
 
 //INICIALIZACION
 const app = express();
@@ -61,10 +60,20 @@ app.use(
   })
 );
 app.use(methodOverride("_method"));
-
+/* Passport */
 initializePassport();
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(flash());
+
+/* VARIABLES GLOBALES */
+app.use((req, res, next) => {
+  res.locals.seccess_alert = req.flash("seccess_alert");
+  res.locals.error_alert = req.flash("error_alert");
+  res.locals.error = req.flash("error");
+  res.locals.user = req.user || null;
+  next();
+});
 
 //STATIC FILES
 app.use("/static", express.static(path.join(_dirname, "/public")));
@@ -94,7 +103,13 @@ io.on("connection", (socket) => {
 //RUTAS
 
 app.use("/static", viewsRouter);
-app.use("/api/users", userRouter);
-app.use("/api/products", productRouter);
+//app.use("/static/products", productRouter);
+
+//app.use("/api/users", userRouter);
+//app.use("/api/products", productRouter);
 app.use("/api/carts", cartRouter);
-app.use("/api/session", sessionRouter);
+//app.use("/api/session", sessionRouter);
+
+app.use("/", productRouter);
+app.use("/", userRouter);
+app.use("/", sessionRouter);

@@ -108,12 +108,12 @@ viewsCtrls.renderHome = async (req, res) => {
   });
 };
 
-viewsCtrls.renderRegister = async (req, res) => {
+/* viewsCtrls.renderRegister = async (req, res) => {
   res.render("register", {
     css: "stylesRegister.css",
     js: "scriptRegister.js",
   });
-};
+}; */
 
 viewsCtrls.renderNewUser = async (req, res) => {
   const { first_name, last_name, age, email, password } = req.body;
