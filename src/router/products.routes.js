@@ -1,4 +1,5 @@
 import { Router } from "express";
+import { passportError, authorization } from "../utils/messagesError.js";
 import productCtrls from "../controllers/products.controllers.js";
 
 const productRouter = Router();
@@ -29,18 +30,43 @@ productRouter.delete(
 /************************************** API ***************************************/
 
 //Crear nuevo producto
-productRouter.post("/api/products", productCtrls.renderApiCreateNewProd);
+productRouter.post(
+  "/api/products",
+  passportError("jwt"),
+  authorization("admin"),
+  productCtrls.renderApiCreateNewProd
+);
 
 //Obtener todos los productos
-productRouter.get("/api/products", productCtrls.renderApiProducts);
+productRouter.get(
+  "/api/products",
+  passportError("jwt"),
+  authorization("admin"),
+  productCtrls.renderApiProducts
+);
 
 //Obtener un producto
-productRouter.get("/api/products/:id", productCtrls.renderApiProductById);
+productRouter.get(
+  "/api/products/:id",
+  passportError("jwt"),
+  authorization("admin"),
+  productCtrls.renderApiProductById
+);
 
 //Editar producto
-productRouter.put("/api/products/:id", productCtrls.renderApiUpdateProd);
+productRouter.put(
+  "/api/products/:id",
+  passportError("jwt"),
+  authorization("admin"),
+  productCtrls.renderApiUpdateProd
+);
 
 //Eliminar producto
-productRouter.delete("/api/products/:id", productCtrls.renderApiDeleteProd);
+productRouter.delete(
+  "/api/products/:id",
+  passportError("jwt"),
+  authorization("admin"),
+  productCtrls.renderApiDeleteProd
+);
 
 export default productRouter;

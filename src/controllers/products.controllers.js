@@ -230,7 +230,7 @@ productCtrls.renderApiProductById = async (req, res) => {
   }
 };
 
-// ------ Creaer producto ------
+// ------ Creer producto ------
 productCtrls.renderApiCreateNewProd = async (req, res) => {
   const { title, description, price, stock, code, thumbnail, category } =
     req.body;

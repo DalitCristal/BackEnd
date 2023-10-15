@@ -9,7 +9,7 @@ import { Server } from "socket.io";
 import { messageModel } from "../src/models/messages.models.js";
 import path from "path";
 import { _dirname } from "./path.js";
-import viewsRouter from "./router/views.routes.js";
+import homeRouter from "./router/home.routes.js";
 import cookieParser from "cookie-parser";
 import passport from "passport";
 import initializePassport from "./config/passport.js";
@@ -102,9 +102,8 @@ io.on("connection", (socket) => {
 
 //RUTAS
 
-app.use("/static", viewsRouter);
-app.use("/api/carts", cartRouter);
-
+app.use("/", homeRouter);
+app.use("/", cartRouter);
 app.use("/", productRouter);
 app.use("/", userRouter);
 app.use("/", sessionRouter);

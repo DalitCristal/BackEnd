@@ -1,3 +1,4 @@
+import { generateToken } from "../utils/jwt.js";
 const sessionsCtrls = {};
 
 /*************************************** VISTAS ***************************************/
@@ -19,6 +20,8 @@ sessionsCtrls.renderSignIn = async (req, res) => {
       age_name: req.user.age,
       email_name: req.user.email,
     };
+
+    req.flash("seccess_alert", `Bienvenido ${req.user.first_name} `);
     res.redirect("/static/", 200, { resultado: "Usuario logueado" });
   } catch (error) {
     res.status(500).send({ mensaje: `Error al iniciar sesion ${error}` });
@@ -36,9 +39,13 @@ sessionsCtrls.renderSignUp = async (req, res) => {
   try {
     if (!req.user) {
       return res.status(400).send({ mensaje: "Usuario ya existente" });
+    } else {
+      req.flash(
+        "seccess_alert",
+        `${req.user.first_name} tu cuenta se creo con exito `
+      );
+      res.redirect("/static/signin");
     }
-
-    res.redirect("/static/signin", 200, { resultado: "Usuario creado" });
   } catch (error) {
     res.status(500).send({ mensaje: `Error al registrar usuario ${error}` });
   }
@@ -66,7 +73,12 @@ sessionsCtrls.renderApiLogin = async (req, res) => {
       age_name: req.user.age,
       email_name: req.user.email,
     };
-    //redirect
+
+    const token = generateToken(req.user);
+    res.cookie("jwtCookie", token, {
+      maxAge: 43200000, //12hs en ms
+    });
+
     res.status(200).send({ payload: req.user });
   } catch (error) {
     res.status(500).send({ mensaje: `Error al iniciar sesion ${error}` });
@@ -98,7 +110,16 @@ sessionsCtrls.renderApiLogOut = (req, res) => {
   if (req.session.login) {
     req.session.destroy();
   }
+  res.clearCookie("jwtCookie");
   res.status(200).send({ resultado: "Usuario deslogueado" });
+};
+
+sessionsCtrls.getAuth = (req, res) => {
+  res.send(req.user);
+};
+
+sessionsCtrls.getUser = (req, res) => {
+  res.send(req.user);
 };
 
 export default sessionsCtrls;

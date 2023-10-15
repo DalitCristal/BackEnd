@@ -34,7 +34,6 @@ viewsCtrls.renderHome = async (req, res) => {
       };
       productsToShow.push(prodRendered);
     }
-    //console.log(productsFromDB);
 
     if (!productsFromDB.hasPrevPage && productsFromDB.hasNextPage) {
       prevPage = 1;
@@ -78,26 +77,6 @@ viewsCtrls.renderHome = async (req, res) => {
     }
   }
 
-  /* const resultado = await productModel.paginate(
-    { category: categoria, status: estado },
-    { limit: limite, page: pagina, sort: { price: clasificar } }
-  );
-  console.log(resultado);
-
-  const arrayProducts = [];
-  for (const i of resultado.docs) {
-    const product = {
-      title: i.title,
-      description: i.description,
-      stock: i.stock,
-      code: i.code,
-      price: i.price,
-      status: i.status,
-      category: i.category,
-      id: i._id,
-    };
-    arrayProducts.push(product);
-  } */
   res.render("home", {
     css: "stylesHome.css",
     js: "scriptHome.js",
@@ -107,50 +86,11 @@ viewsCtrls.renderHome = async (req, res) => {
   });
 };
 
-/* viewsCtrls.renderRegister = async (req, res) => {
-  res.render("register", {
-    css: "stylesRegister.css",
-    js: "scriptRegister.js",
-  });
-}; */
-
-/* viewsCtrls.renderNewUser = async (req, res) => {
-  const { first_name, last_name, age, email, password } = req.body;
-  try {
-    const newUser = await userModel.create({
-      first_name,
-      last_name,
-      age,
-      email,
-      password,
-    });
-    res.status(200).send({ respuesta: "OK", mensaje: newUser });
-  } catch (error) {
-    res
-      .status(400)
-      .send({ respuesta: "Error al crear usuario", mensaje: error });
-  }
-}; */
-
-/* viewsCtrls.renderLogin = (req, res) => {
-  res.render("login", {
-    css: "stylesLogin.css",
-    js: "scriptLogin.js",
-  });
-}; */
-
 viewsCtrls.renderChat = (req, res) => {
   res.render("chat", {
     css: "stylesChat.css",
     js: "script.js",
   });
 };
-/* 
-viewsCtrls.renderProducts = (req, res) => {
-  res.render("products", {
-    css: "stylesProducts.css",
-    js: "scriptProducts.js",
-  });
-}; */
 
 export default viewsCtrls;

@@ -7,7 +7,7 @@ const usersCtrls = {};
 // EDITAR UN USUARIO
 //ELIMINAR UN USUARIO
 /************************************** API ***************************************/
-//Todos los ususarios
+//Todos los usuarios
 usersCtrls.renderApiAllUsers = async (req, res) => {
   try {
     const users = await userModel.find();

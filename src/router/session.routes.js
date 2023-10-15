@@ -1,6 +1,7 @@
 import { Router } from "express";
-import sessionsCtrls from "../controllers/session.controllers.js";
 import passport from "passport";
+import { passportError, authorization } from "../utils/messagesError.js";
+import sessionsCtrls from "../controllers/session.controllers.js";
 
 const sessionRouter = Router();
 
@@ -61,5 +62,19 @@ sessionRouter.get(
 
 //Cerrar sesión
 sessionRouter.get("/api/session/logout", sessionsCtrls.renderApiLogOut);
+
+//TEST
+sessionRouter.get(
+  "/api/session/test-jwt",
+  passport.authenticate("jwt", { session: false }),
+  sessionsCtrls.getAuth
+);
+
+sessionRouter.get(
+  "/api/session/current",
+  passportError("jwt"),
+  authorization("user"),
+  sessionsCtrls.getUser
+);
 
 export default sessionRouter;
